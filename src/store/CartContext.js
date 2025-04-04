@@ -7,8 +7,32 @@ const CartContext = createContext({
 
 const cartReducer = (state, action) => {
   if (action.type === "ADD") {
-    return { items: [...state.items, action.item] };
+    const existingItemIndex = state.items.findIndex(
+        (item) => item.id === action.item.id
+    );
+    
+    let updatedItems;
+
+    if(existingItemIndex !== -1){
+        const existingItem = state.items[existingItemIndex];
+        const updatedItem = {
+            ...existingItem, 
+            quantity: existingItem.quantity + 1,
+        };
+
+        updatedItems = [...state.items];
+        updatedItems[existingItemIndex] = updatedItem;
+    } else {
+        const newItem = {
+            ...action.item, 
+            quantity:1,
+        };
+        updatedItems = [...state.items, newItem];
+    }
+    
+    return { items: updatedItems};
   }
+  
   return state;
 };
 
@@ -18,6 +42,8 @@ export const CartProvider = ({ children }) => {
   const addItem = (item) => {
     dispatchCart({ type: "ADD", item });
   };
+
+  console.log("cart items;",cartState.items);
 
   return (
     <CartContext.Provider value={{ items: cartState.items, addItem }}>
