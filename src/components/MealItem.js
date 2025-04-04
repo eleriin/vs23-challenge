@@ -1,3 +1,5 @@
+import Button from "./UI/Button";
+
 const MealItem = (props) => {
     const formattedPrice = new Intl.NumberFormat('et-EE',{
         style: 'currency',

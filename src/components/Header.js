@@ -1,5 +1,6 @@
 import React from 'react'
 import logo from '../assets/logo.jpg'
+import Button from './UI/Button'
 
 const Header = () => {
     return (
@@ -9,7 +10,7 @@ const Header = () => {
                 <h1>React Food Order App</h1>
             </div>
             <nav>
-            <button>Cart (0)</button>
+            <button textOnly>Cart (0)</button>
             </nav>
         </header>
     )
