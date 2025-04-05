@@ -32,6 +32,10 @@ const cartReducer = (state, action) => {
     
     return { items: updatedItems};
   }
+
+  if (action.type === 'CLEAR'){
+    return { items: []};
+  }
   
   return state;
 };
@@ -43,10 +47,12 @@ export const CartProvider = ({ children }) => {
     dispatchCart({ type: "ADD", item });
   };
 
-  console.log("cart items;",cartState.items);
+  const clearCart = ()=>{
+    dispatchCart({type: 'CLEAR'});
+  }
 
   return (
-    <CartContext.Provider value={{ items: cartState.items, addItem }}>
+    <CartContext.Provider value={{ items: cartState.items, addItem, clearCart }}>
       {children}
     </CartContext.Provider>
   );
